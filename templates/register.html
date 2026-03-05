@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register Donor</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %">
+</head>
+
+<body>
+{% include "navbar.html" %}
+
+<div class="form-container">
+
+<h2>Register Blood Donor</h2>
+
+<form method="POST">
+{% csrf_token %}
+
+<input type="text" name="name" placeholder="Full Name" required>
+
+<input type="email" name="email" placeholder="Email">
+
+<input type="text" name="phone" placeholder="Phone Number">
+
+<label>Blood Group</label>
+
+<select name="blood_group">
+
+<option>A+</option>
+<option>A-</option>
+<option>B+</option>
+<option>B-</option>
+<option>O+</option>
+<option>O-</option>
+<option>AB+</option>
+<option>AB-</option>
+
+</select>
+
+<label>Area</label>
+
+<select name="area" required>
+
+<option value="">Select Area</option>
+
+<option value="Tirupati">Tirupati</option>
+<option value="Renigunta">Renigunta</option>
+<option value="Chandragiri">Chandragiri</option>
+<option value="Tiruchanoor">Tiruchanoor</option>
+<option value="Alipiri">Alipiri</option>
+<option value="Mangalam">Mangalam</option>
+
+</select>
+
+<label>
+<input type="checkbox" name="available"> Available for Donation
+</label>
+
+<button type="submit">Register</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
