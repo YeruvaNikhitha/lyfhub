@@ -1,5 +1,45 @@
 {% include "navbar.html" %}
 
-<h2>🚨 Emergency Blood Needed</h2>
+<h2>Emergency Blood Request</h2>
 
-<p>If you urgently need blood, contact available donors immediately.</p>
+<form method="POST">
+{% csrf_token %}
+
+<select name="blood_group">
+<option>A+</option>
+<option>B+</option>
+<option>O+</option>
+<option>AB+</option>
+</select>
+
+<select name="area">
+<option>Tirupati</option>
+<option>Renigunta</option>
+<option>Chandragiri</option>
+</select>
+
+<button type="submit">Find Donors</button>
+
+</form>
+
+<div class="donor-list">
+
+{% for donor in donors %}
+
+<div class="donor-card">
+
+<h3>{{ donor.name }}</h3>
+
+<p>{{ donor.blood_group }}</p>
+<p>{{ donor.area }}</p>
+
+<a href="tel:{{ donor.phone }}">Call</a>
+<a href="https://wa.me/{{ donor.phone }}?text=Emergency blood needed in {{ donor.area }}">
+WhatsApp
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>

@@ -1,0 +1,30 @@
+{% include "navbar.html" %}
+
+<h2>Donor Profile</h2>
+
+<div class="profile-card">
+
+<h3>{{ donor.name }}</h3>
+
+<p>Blood Group: {{ donor.blood_group }}</p>
+
+<p>Area: {{ donor.area }}</p>
+
+<p>Phone: {{ donor.phone }}</p>
+
+<p>Last Donation: {{ donor.last_donation }}</p>
+
+<p>
+Availability:
+{% if donor.available %}
+<span style="color:green;">ON</span>
+{% else %}
+<span style="color:red;">OFF</span>
+{% endif %}
+</p>
+
+<a href="/toggle/{{ donor.id }}/">
+Toggle Availability
+</a>
+
+</div>

@@ -43,53 +43,19 @@ font-size:18px;
 
 {% include "navbar.html" %}
 
-<h1 style="text-align:center;">Admin Dashboard</h1>
+<h1>Blood Availability Dashboard</h1>
 
 <div class="dashboard">
 
-<div class="card">
+<div>Total Donors : {{ total }}</div>
 
-<h2>{{ total_donors }}</h2>
+<div>Available Donors : {{ available }}</div>
 
-<p>Total Donors</p>
+<div>A+ : {{ a_pos }}</div>
 
-</div>
+<div>B+ : {{ b_pos }}</div>
 
-
-<div class="card">
-
-<h2>{{ available_donors }}</h2>
-
-<p>Available Donors</p>
-
-</div>
-
-
-<div class="card">
-
-<h2>{{ tirupati }}</h2>
-
-<p>Tirupati</p>
-
-</div>
-
-
-<div class="card">
-
-<h2>{{ renigunta }}</h2>
-
-<p>Renigunta</p>
-
-</div>
-
-
-<div class="card">
-
-<h2>{{ chandragiri }}</h2>
-
-<p>Chandragiri</p>
-
-</div>
+<div>O+ : {{ o_pos }}</div>
 
 </div>
 

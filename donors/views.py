@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
-from .models import Donor
+from .models import Donor,EmergencyRequest
 
 def home(request):
     return render(request,"home.html")
 
 
-from .models import Donor
+def profile(request, donor_id):
+
+    donor = Donor.objects.get(id=donor_id)
+
+    return render(request,"profile.html",{"donor":donor})
 
 def register(request):
 
@@ -43,29 +47,51 @@ def search_donors(request):
     return render(request,"search_donors.html",{"donors":donors})
 
 
-def emergency(request):
-    donors = Donor.objects.filter(available=True)
-    return render(request,"search_donors.html",{"donors":donors})
+from .models import Donor, EmergencyRequest
+
+def emergency_request(request):
+
+    donors = []
+
+    if request.method == "POST":
+
+        blood = request.POST.get("blood_group")
+        area = request.POST.get("area")
+
+        donors = Donor.objects.filter(
+            blood_group=blood,
+            area=area,
+            available=True
+        )
+
+    return render(request,"emergency.html",{"donors":donors})
 
 
-def admin_dashboard(request):
+def dashboard(request):
 
-    total_donors = Donor.objects.count()
+    total = Donor.objects.count()
 
-    available_donors = Donor.objects.filter(available=True).count()
+    available = Donor.objects.filter(available=True).count()
 
-    tirupati = Donor.objects.filter(area="Tirupati").count()
-
-    renigunta = Donor.objects.filter(area="Renigunta").count()
-
-    chandragiri = Donor.objects.filter(area="Chandragiri").count()
+    a_pos = Donor.objects.filter(blood_group="A+").count()
+    b_pos = Donor.objects.filter(blood_group="B+").count()
+    o_pos = Donor.objects.filter(blood_group="O+").count()
 
     context = {
-        "total_donors": total_donors,
-        "available_donors": available_donors,
-        "tirupati": tirupati,
-        "renigunta": renigunta,
-        "chandragiri": chandragiri
+        "total": total,
+        "available": available,
+        "a_pos": a_pos,
+        "b_pos": b_pos,
+        "o_pos": o_pos
     }
 
-    return render(request, "admin_dashboard.html", context)
+    return render(request,"dashboard.html",context)
+
+def toggle_availability(request, donor_id):
+
+    donor = Donor.objects.get(id=donor_id)
+
+    donor.available = not donor.available
+    donor.save()
+
+    return redirect("profile",donor_id=donor.id)
